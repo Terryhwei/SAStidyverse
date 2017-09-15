@@ -214,7 +214,7 @@ quit;
 %mend;
  
  
-%macro summarise_all/parmbuff store secure des="dplySAS";
+%macro summarise_all/parmbuff;
 %interpreter(&syspbuff,%str(#));
  
 %let i = 1;
@@ -267,7 +267,7 @@ run;
 %mend;
  
  
-%macro sort_nodup/parmbuff store secure des="dplySAS";
+%macro sort_nodup/parmbuff ;
 %interpreter(&syspbuff,%str( ));
 proc sort data = &syslast nodupkey;
     by  &param_execute;
@@ -439,7 +439,7 @@ run;
 %mend;
  
  
-%macro count/parmbuff store secure des="dplySAS";
+%macro count/parmbuff;
   %let param_len = %eval(%length(&syspbuff)-2);
   %let count_param = %sysfunc(substr(&syspbuff,2,&param_len));
   %group_by(&count_param);
@@ -471,7 +471,7 @@ run;
 %mend;
 
  
-%macro format/parmbuff store secure des="dplySAS";
+%macro format/parmbuff ;
     %interpreter(&syspbuff,%str(  ) );  
     %let lib_part = %bquote(%scan( %bquote(&syslast),1,%str(.)));
     %let data_part = %bquote(%scan( %bquote(&syslast),2,%str(.)));
@@ -627,7 +627,7 @@ run;
 %mend;
  
  
-%macro freq/parmbuff store secure des="dplySAS";
+%macro freq/parmbuff;
     %interpreter(&syspbuff,%str( * ) ); 
     %let param_execute_c = %sysfunc(compress(&param_execute));
     %let param_len = %eval(%length(&param_execute_c)-1);
