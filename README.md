@@ -1,7 +1,7 @@
 # SAS_tidyverse
 
 ## 这是个啥
-SAS_tidyverse提供类似于tidyverse包及R函数使用习惯的宏程序, 也是***a grammar of data manipulation*** ,***efficient***.
+SAS_tidyverse提供类似于tidyverse包及R函数使用习惯的宏程序, 也是***a grammar of data manipulation*** ,***a grammar of data manipulation***.
 
 ## 为什么做
 *好的设计让人爱不释手，它很美---***pipe philosophy ***!
