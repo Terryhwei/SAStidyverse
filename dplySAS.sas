@@ -165,13 +165,13 @@ run;
 %mend;
  
  
-%macro group_by/parmbuff store secure des="dplySAS";
+%macro group_by/parmbuff;
 %global group_var;
   %let param_len = %eval(%length(&syspbuff)-2);
   %let group_var = %sysfunc(substr(&syspbuff,2,&param_len)); 
 %mend;
  
-%macro summarise/parmbuff store secure des="dplySAS";
+%macro summarise/parmbuff;
 %interpreter(&syspbuff,%str(#));
 
 %let i = 1;
@@ -184,7 +184,9 @@ run;
        %let next_temp = %bquote(%scan( %bquote(&param_execute),%eval(&i +1),%str(#)));
  
        %let left_part =  %bquote(%scan( %bquote(&&param_&i),1,%str(=)));
-       %let right_part =  %bquote(%scan( %bquote(&&param_&i),2,%str(=)));
+       %let left_len = %eval(%length(&left_part)+2);
+       %let str_len = %eval(%length(&&param_&i)-&left_len+1);
+       %let right_part =  %sysfunc(substr(&&param_&i,&left_len,&str_len));
  
         
        %if &i eq 1 %then %do;
@@ -225,7 +227,9 @@ quit;
        %let next_temp = %bquote(%scan( %bquote(&param_execute),%eval(&i +1),%str(#)));
  
        %let left_part =  %bquote(%scan( %bquote(&&param_&i),1,%str(=)));
-       %let right_part =  %bquote(%scan( %bquote(&&param_&i),2,%str(=)));
+       %let left_len = %eval(%length(&left_part)+2);
+       %let str_len = %eval(%length(&&param_&i)-&left_len+1);
+       %let right_part =  %sysfunc(substr(&&param_&i,&left_len,&str_len));
  
         
        %if &i eq 1 %then %do;
@@ -482,7 +486,7 @@ run;
 %mend;
  
  
-%macro left_join/parmbuff store secure des="dplySAS";
+%macro left_join/parmbuff ;
     %let param_orig = &syspbuff;
     %let param_len = %eval(%length(&param_orig)-2);
     %let param_cnt = %sysfunc(substr(&param_orig,2,&param_len));
@@ -535,6 +539,67 @@ run;
  
      
 %mend;
+ 
+
+%macro left_join_/parmbuff ;
+    %let param_orig = &syspbuff;
+    %let param_len = %eval(%length(&param_orig)-2);
+    %let param_cnt = %sysfunc(substr(&param_orig,2,&param_len));
+    
+    %let table_left = &syslast;
+    
+    %let table_right = %bquote(%scan( %bquote(&param_cnt),1,%str(,)));
+    %let match_key = %bquote(%scan( %bquote(&param_cnt),2,%str(,)));
+    %let result_table = &syslast;
+ 
+ 
+    %if &match_key eq %str()  %then %do;
+        %put ERROR:  match key missing!!;
+        %return;
+    %end;
+ 
+ 
+    %if %sysfunc(COUNT(&match_key,%str(=))) eq 0 %then %do;
+        %let key_left = &match_key;
+        %let key_right = &match_key;
+    %end;
+    %else %do;
+        %let key_left = %bquote(%scan( %bquote(&match_key),1,%str(=)));
+        %let key_right = %bquote(%scan( %bquote(&match_key),2,%str(=)));
+    %end;
+ 
+    /*%put &table_left &table_right &match_key  &key_left &key_right ;*/
+ 
+    %with(&table_left);
+    %sort(&key_left);
+ 
+ 
+    %with(&table_right);
+    %sort(&key_right);
+ 
+    %remove(&result_table);
+    data &result_table;
+       merge
+       &table_left(in=a )
+       &table_right(in=b
+       rename=(&key_right = &key_left)
+       );
+       by &key_left;
+       match=cat(a,b);
+       if a;
+    run;
+ 
+ 
+    %count(match);
+    %with(&result_table);
+ 
+     
+%mend; 
+ 
+ 
+ 
+ 
+ 
  
   
 %macro view(table);
