@@ -42,7 +42,8 @@ SAS_tidyverse提供类似于tidyverse包及R函数使用习惯的宏程序, 也�
 
 ## 特点：
 * 类似于dplyR函数，可以输入不限定个数的参数
-* 通过数据操作指针，实现类似R 的pipe语法功能
+* 通过数据操作指针，实现pipe语法功能
 * names,ncol,nrow,rename,format等函数采用了高效的处理方式，直接读取和直接改变属性
 * extract操作像python 
-
+* left_join会输出匹配率
+* 公司SAS一天不断，就会持续更新完善
