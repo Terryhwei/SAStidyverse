@@ -62,35 +62,35 @@
  
  
 %macro with(table);
-%let syslast = &table;
+   %let syslast = &table;
 %mend;
 
  
  
 %macro as(table);
-%pipe_prep;
-%remove(&table);
-proc append base = &table data=&syslast;
-run;
+   %pipe_prep;
+   %remove(&table);
+   proc append base = &table data=&syslast;
+   run;
 %mend;
  
 
  
 %macro remove/parmbuff;
-%interpreter(&syspbuff,%str( ));
+   %interpreter(&syspbuff,%str( ));
  
-%if &param_execute eq %str() %then %do;
-%let rm_table = &syslast;
-%end;
-%else %do;
-%let rm_table = &param_execute;
-%end;
+   %if &param_execute eq %str() %then %do;
+      %let rm_table = &syslast;
+   %end;
+   %else %do;
+      %let rm_table = &param_execute;
+   %end;
  
-%put Remove:&rm_table;
-/*%put &param_execute;*/
-proc delete
-    data = &rm_table;
-run;
+   %put Remove:&rm_table;
+  /*%put &param_execute;*/
+   proc delete
+     data = &rm_table;
+   run;
 %mend;
  
  
@@ -166,21 +166,21 @@ run;
  
  
 %macro group_by/parmbuff;
-%global group_var;
-  %let param_len = %eval(%length(&syspbuff)-2);
-  %let group_var = %sysfunc(substr(&syspbuff,2,&param_len)); 
+   %global group_var;
+   %let param_len = %eval(%length(&syspbuff)-2);
+   %let group_var = %sysfunc(substr(&syspbuff,2,&param_len)); 
 %mend;
  
 %macro summarise/parmbuff;
-%interpreter(&syspbuff,%str(#));
+   %interpreter(&syspbuff,%str(#));
 
-%let i = 1;
-%let next_temp = first_round;
-%let sql_expr = ;
+   %let i = 1;
+   %let next_temp = first_round;
+   %let sql_expr = ;
  
-%do %while (%str(&next_temp) ne %str( ));
+   %do %while (%str(&next_temp) ne %str( ));
   
-        %let param_&i = %bquote(%scan( %bquote(&param_execute),&i,%str(#)));
+       %let param_&i = %bquote(%scan( %bquote(&param_execute),&i,%str(#)));
        %let next_temp = %bquote(%scan( %bquote(&param_execute),%eval(&i +1),%str(#)));
  
        %let left_part =  %bquote(%scan( %bquote(&&param_&i),1,%str(=)));
@@ -215,15 +215,15 @@ quit;
  
  
 %macro summarise_all/parmbuff;
-%interpreter(&syspbuff,%str(#));
+   %interpreter(&syspbuff,%str(#));
  
-%let i = 1;
-%let next_temp = first_round;
-%let sql_expr = ;
+   %let i = 1;
+   %let next_temp = first_round;
+   %let sql_expr = ;
  
-%do %while (%str(&next_temp) ne %str( ));
+   %do %while (%str(&next_temp) ne %str( ));
   
-        %let param_&i = %bquote(%scan( %bquote(&param_execute),&i,%str(#)));
+       %let param_&i = %bquote(%scan( %bquote(&param_execute),&i,%str(#)));
        %let next_temp = %bquote(%scan( %bquote(&param_execute),%eval(&i +1),%str(#)));
  
        %let left_part =  %bquote(%scan( %bquote(&&param_&i),1,%str(=)));
@@ -260,18 +260,18 @@ quit;
  
  
 %macro sort/parmbuff;
-%interpreter(&syspbuff,%str( ));
-proc sort data = &syslast;
-    by  &param_execute;
-run;
+   %interpreter(&syspbuff,%str( ));
+   proc sort data = &syslast;
+      by  &param_execute;
+   run;
 %mend;
  
  
 %macro sort_nodup/parmbuff ;
-%interpreter(&syspbuff,%str( ));
-proc sort data = &syslast nodupkey;
-    by  &param_execute;
-run;
+    %interpreter(&syspbuff,%str( ));
+    proc sort data = &syslast nodupkey;
+       by  &param_execute;
+    run;
 %mend;
 
  
@@ -401,36 +401,36 @@ run;
  
  
 %macro nrow(table);
-%pipe_prep;
-%let dsid=%sysfunc(open(&table)); 
- %let nobs = %sysfunc(attrn(&dsid,nobs));
-%let dsid=%sysfunc(close(&dsid));
+   %pipe_prep;
+   %let dsid=%sysfunc(open(&table)); 
+    %let nobs = %sysfunc(attrn(&dsid,nobs));
+   %let dsid=%sysfunc(close(&dsid));
  
-%put Rows: &nobs ;
+   %put Rows: &nobs ;
  
 %mend;
  
  
 %macro ncol(table);
-%pipe_prep;
-%let dsid=%sysfunc(open(&table)); 
- %let nvars = %sysfunc(attrn(&dsid,nvar));
-%let dsid=%sysfunc(close(&dsid));
-%put Columns: &nvars ;
+   %pipe_prep;
+   %let dsid=%sysfunc(open(&table)); 
+   %let nvars = %sysfunc(attrn(&dsid,nvar));
+   %let dsid=%sysfunc(close(&dsid));
+   %put Columns: &nvars ;
  
 %mend;
  
 %macro names(table);
-%pipe_prep;
-%let dsid=%sysfunc(open(&table)); 
-  %let nvars = %sysfunc(attrn(&dsid,nvar));
-  %let var = ;
+   %pipe_prep;
+   %let dsid=%sysfunc(open(&table)); 
+   %let nvars = %sysfunc(attrn(&dsid,nvar));
+   %let var = ;
     %do k = 1 %to &nvars;
        %let varname = %sysfunc(varname(&dsid,&k));
        %let var = &var  &varname;
     %end;
-%let dsid=%sysfunc(close(&dsid));
-%put Names: &var ;
+   %let dsid=%sysfunc(close(&dsid));
+   %put Names: &var ;
 %mend;
  
 %macro print(table);
