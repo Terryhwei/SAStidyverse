@@ -61,7 +61,7 @@ SAS tidyverse提供类似于`R tidyverse`包及R使用习惯的宏程序, 也是
  
 	%group_by(Species)
 	%summarise( sum_len = sum(PetalLength),n = count(*))
-  %view(iris_smrz)
+        %view(iris_smrz)
 ```
 
 ## updating...
