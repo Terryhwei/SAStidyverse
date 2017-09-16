@@ -4,11 +4,12 @@
 SAS tidyverse提供类似于`R tidyverse`包及R使用习惯的宏程序, 也是 ***a grammar of data manipulation***.
 
 ## 为什么做
-   * 好的设计让人爱不释手，如 ***Unix pipe philosophy***
+   
+   * 好的设计让人爱不释手，如 ***Unix pipe philosophy*** 
  
    * 让R重度使用者写SAS时更亲切，同时减少代码编辑时间
    
-   * 据说select,filter,mutate,group_by,summarise五个函数就能解决80%的数据操作问题
+   * 据说select,filter,mutate,group_by,summarise五个函数就能解决80%的数据操作问题
    
    * 我们产生不了源代码，只是代码的翻译工
 
