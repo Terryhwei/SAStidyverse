@@ -42,8 +42,12 @@
  
 * ------------------------%select-------------------------- ;
 * Usage：;
-/*%select(...)*/
- 
+/*%select(var1,var2,...)*/
+/*%select(var1 var2 ...)*/
+/*%select(-var1,-var2,...)*/
+/*%select(-var1 var2 ...)*/
+/*%select(var_start_with:, ...)*/
+
 * Examples:;
 %with(sashelp.iris)
 	%as(iris_select1)
@@ -64,7 +68,7 @@
  
 * ------------------------%mutate-------------------------- ;
  * Usage：;
-/*%mutate(...)*/
+/*%mutate(var1 = expr1,var2 = expr2,...)*/
  
 * Examples:;
 %with(sashelp.iris)
@@ -75,10 +79,12 @@
               width_ratio = SepalWidth/PetalWidth,
               SepalLength_md5  = put(md5(SepalLength),$hex32.)
           )
- 
- 
-%group_by(groupvar_1,groupvar_2,...)
-%summarise(expression1,expression2,...)
+* --------------------------------------------------------- ; 
+
+* ------------------------%group_by-------------------------- ;
+ * Usage：;
+/*%group_by(groupvar1,groupvar2,...)*/
+/*%summarise(expression1,expression2,...)*/
  
  
  
@@ -125,6 +131,7 @@
 *--------------------%left_join----------------------------- ; 
 *Usage：;
 /*%left_join(left_tale,right_table,key,merged_table)*/
+/*会生成新变量 match,如不需要可拼表完成后加%select(-match)删除*/
  
 * Examples:;
 data a;
@@ -150,12 +157,14 @@ varb = 2; varc_s = "bc";output;
 run;
 
 
-%left_join(a,b,vara = varb,merge_ab);*key一样时不写=直接写变量名即可,如：
-%left_join(a,b,key,merge_ab);
+%left_join(a,b,vara = varb,merge_ab);
+*key一样时不写=直接写变量名即可,如：%left_join(a,b,key,merge_ab);
 
 %left_join_
 *Usage：;
-/*%left_join_(right_table,key),利用pipe，适用于多表情况，不断把表拼接到数据指针指向的表，注意：多对多时与sql的区别，不会产生完全笛卡尔积，可参见后例*/
+/*%left_join_(right_table,key)*/
+*利用pipe做left_join，适用于多表情况，不断把表拼接到数据指针指向的表，
+注意：多对多时与sql的区别，不会产生完全笛卡尔积，可参见后例;
  
 
 
@@ -170,7 +179,8 @@ run;
 
 * --------------------------%freq-------------------------- ;
 *Usage：;
-/*%freq(var1,var2,...)*不生成表，只打印结果*/
+/*%freq(var1,var2,...)*/
+*不生成表，只打印结果,数据处理指针不变;
 
 * Examples:; 
 %with(sashelp.iris)	 
@@ -180,7 +190,8 @@ run;
  
 * ----------------------%view------------------------------- ;
 *Usage：;
-/*%view(table)*打开数据表,EG里好像不行;*/
+/*%view(table)*/
+*打开数据表,EG里好像不行;
 
 * Examples:; 
 %view(sashelp.iris)
@@ -190,7 +201,8 @@ run;
  
 * ----------------------%extract---------------------------- ;
 *Usage：;
-/*%extract(row,col)* 类似R[]操作;*/
+/*%extract(row,col)/
+* 类似R的[]操作，按行列筛选表;
 
 * Examples:;  
 %with(sashelp.iris);
