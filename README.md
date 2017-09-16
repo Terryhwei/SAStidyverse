@@ -1,7 +1,7 @@
-# SAS_tidyverse
+# SAS tidyverse
 
 ## 这是个啥
-SAS_tidyverse提供类似于tidyverse包及R函数使用习惯的宏程序, 也是 ***a grammar of data manipulation***.
+SAS tidyverse提供类似于`R tidyverse`包及R使用习惯的宏程序, 也是 ***a grammar of data manipulation***.
 
 ## 为什么做
    * 好的设计让人爱不释手，它很美---***pipe philosophy***
@@ -10,15 +10,15 @@ SAS_tidyverse提供类似于tidyverse包及R函数使用习惯的宏程序, 也�
    
    * 我们产生不了源代码，只是代码的搬运工
 
-## 目前已包含哪些内容
-### 类似dplyR的
+## 目前已包含哪些宏
+### 类似dplyr的
  * %filter()
  * %select()
  * %mutate()
  * %group_by()
- * %summarise()
+ * %summarise()  **还只能和group_by()搭配用**
  * %count()
- * %summarise_all()
+ * %summarise_all()  **同R的 group_by() %>% %mutate()**
  * %left_join()
  * %left_join_()
  * %rename()
@@ -47,3 +47,5 @@ SAS_tidyverse提供类似于tidyverse包及R函数使用习惯的宏程序, 也�
 * extract操作像python 
 * left_join会输出匹配率
 * 公司SAS一天不断，就会持续更新完善
+
+## 来个示例（更多参见example.sas）
