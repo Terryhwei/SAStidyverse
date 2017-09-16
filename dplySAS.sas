@@ -25,7 +25,7 @@
             %sysfunc(COUNT(&&param_&i,%str(%)))) and
            %sysfunc(mod( %sysfunc(COUNT(&&param_&i,%str(%'))),2)) eq 0 and
            %sysfunc(mod(%sysfunc(COUNT(&&param_&i,%str(%"))),2)) eq 0 and
-           &unmatched_part = )
+           &unmatched_part = %str())
        %then %do;      
            %let param_execute = &param_execute &&param_&i %str(&sep_sign) %str( );
        %end;
