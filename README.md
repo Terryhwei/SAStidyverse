@@ -1,30 +1,31 @@
 # SAS tidyverse
 
-## 这是个啥
+## 这是什么
+
 SAS tidyverse提供类似于`R tidyverse`包及R使用习惯的宏程序, 也是 ***a grammar of data manipulation***.
 
 ## 为什么做
-   
-   * 好的设计让人爱不释手，如 ***Unix pipe philosophy*** 
+
  
    * 让R重度使用者写SAS时更亲切，同时减少代码编辑时间
    
-   * 据说select,filter,mutate,group_by,summarise五个函数就能解决80%的数据操作问题
-   
    * 我们产生不了源代码，只是代码的翻译工
-
+   
+   
 ## 目前已包含哪些宏
 ### 类似dplyr的
  * %filter()
  * %select()
  * %mutate()
  * %group_by()
+ * %sort() -- 同R的 arrange()
  * %summarise()  --还只能和group_by()搭配用
  * %count()
  * %summarise_all()  --同R的 group_by() %>% %mutate()
  * %left_join()
  * %left_join_()
  * %rename()
+ 
  
 ### 类似R base的
  * %nrow()
@@ -37,7 +38,6 @@ SAS tidyverse提供类似于`R tidyverse`包及R使用习惯的宏程序, 也是
  * %with()
  * %as()
  * %remove()
- * %sort()
  * %sort_nodup()
  * %contents()
  * %format()
@@ -51,7 +51,7 @@ SAS tidyverse提供类似于`R tidyverse`包及R使用习惯的宏程序, 也是
 * left_join会输出匹配率
 
 
-## 来个示例（更多参见dplysas_example.sas）
+## 示例（更多参见dplysas_example.sas）
 
 ```SAS
 %with(sashelp.iris)
