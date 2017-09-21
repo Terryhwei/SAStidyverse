@@ -1,6 +1,7 @@
 * --------------------%with,%as --------------------------- ; 
 * Usage：;
-/*%with(table) *数据操作指针不指定默认为程序最近一次生成的数据集.;*/
+/*%with(table) *定义数据操作指针，数据操作指针不指定默认为程序最
+近一次生成的数据集.;*/
 /*%as(table) *复制数据，将数据操作指针指向的数据复制到指定数据集.;*/
  
 * Examples:;
@@ -10,7 +11,8 @@
  
 * -----------------------%remove--------------------------- ;
 * Usage：;
-/*%remove(tb1,tb2,...) *删除数据集.;*/ 
+/*%remove(tb1,tb2,...) *删除数据集tb1,tb2,...;*/ 
+/*%remove *删除数据指针指向的数据集;*/
 
 * Examples:;
 %with(sashelp.iris);
@@ -28,7 +30,7 @@
  
 * -------------------------%filter------------------------ ;
 * Usage：;
-/*%filer(filter1,filter2,...)*/
+/*%filer(filter1,filter2,...) */
  
 * Examples:;
 %with(sashelp.iris)
@@ -42,11 +44,11 @@
  
 * ------------------------%select-------------------------- ;
 * Usage：;
-/*%select(var1,var2,...)*/
-/*%select(var1 var2 ...)*/
-/*%select(-var1,-var2,...)*/
-/*%select(-var1 var2 ...)*/
-/*%select(var_start_with:, ...)*/
+/*%select(var1,var2,...)                选取变量var1,var2,...*/
+/*%select(var1 var2 ...)                选取变量var1,var2,...*/
+/*%select(-var1,-var2,...)              删除变量var1,var2,...*/
+/*%select(-var1 var2 ...)               删除变量var1,var2,...*/
+/*%select(name_head:, ...)     选取变量名以name_head开头的变量*/
 
 * Examples:;
 %with(sashelp.iris)
@@ -68,7 +70,7 @@
  
 * ------------------------%mutate-------------------------- ;
  * Usage：;
-/*%mutate(var1 = expr1,var2 = expr2,...)*/
+/*%mutate(var1 = expr1,var2 = expr2,...) */
  
 * Examples:;
 %with(sashelp.iris)
@@ -123,7 +125,7 @@
 )
     
 
-/* summarise_all 相同 */
+/* summarise_all 同 R的 group_by() %>% mutate()*/
 
 * --------------------------------------------------------- ;
 
