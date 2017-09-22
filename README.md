@@ -51,7 +51,7 @@ SAS tidyverse提供类似于`R tidyverse`包及R使用习惯的宏程序, 也是
 * left_join会输出匹配率
 
 
-## 示例（更多参见dplysas_example.sas）
+## [示例](https://github.com/Terryhwei/SAStidyverse/blob/master/dplySAS_example.sas)
 
 ```SAS
 %with(sashelp.iris)
