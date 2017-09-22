@@ -21,7 +21,7 @@ SAS tidyverse提供类似于`R tidyverse`包及R使用习惯的宏程序, 也是
  * %sort() -- 同R的 arrange()
  * %summarise()  --还只能和group_by()搭配用
  * %count()
- * %summarise_all()  --同R的 group_by() %>% %mutate()
+ * %summarise_all()  --同R的 group_by() %>% mutate()
  * %left_join()
  * %left_join_()
  * %rename()
