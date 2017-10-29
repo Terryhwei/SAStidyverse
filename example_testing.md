@@ -9,3 +9,8 @@
 
 ![alt tag](https://github.com/Terryhwei/SAStidyverse/blob/master/graph/tst.png)
 
+
+***high resolution***
+
+![alt tag](https://github.com/Terryhwei/SAStidyverse/blob/master/graph/SGPlot87.png)
+
