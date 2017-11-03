@@ -577,7 +577,7 @@ quit;
     %with(&table_right);
     %sort(&key_right);
  
-    %remove(&result_table);
+ 
     data &result_table;
        merge
        &table_left(in=a )
